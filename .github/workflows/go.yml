@@ -8,9 +8,10 @@ jobs:
     name: Build and Release
     runs-on: ubuntu-latest
     steps:
-    - name: Get dat
+    - name: Get current date
       id: date
-      run: echo "name=$(date +'%Y%m%d')" >> $GITHUB_ENV
+      run: echo "::set-output name=date::$(date +'%Y%m%d')"
+
     - name: Set up Go 1.x
       uses: actions/setup-go@v2
       with:
@@ -22,6 +23,7 @@ jobs:
     - name: Zip up
       run: |
           zip --junk-paths monkey-pak-extract.zip monkey-pak-extract README.md
+
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
